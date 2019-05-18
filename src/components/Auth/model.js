@@ -5,7 +5,12 @@ const Schema = mongoose.Schema
 
 const UserSchema = Schema({
     name: { type: String, default: '' },
-    email: { type: String, default: '', unique: true }
+    last_name: {type:String, default: ''},
+    document: {type:Number, default: 0, unique: true},
+    email: { type: String, default: '', unique: true },
+    password: {type:String, default:''},
+    date_create: {type: Number, default:0},
+    date_update: {type:Number, default: 0}
 });
 
 UserSchema.methods.toJSON = function () {

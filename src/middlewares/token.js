@@ -1,7 +1,7 @@
 'use strict'
 const jwt = require('jwt-simple');
 const moment = require('moment');
-const tokenSecret = require('./secret');
+const tokenSecret = require('./secret').TOKEN_SECRET;
 
 exports.Authentication = function (req, res, next) {
     if (!req.header.authorization) {
@@ -23,11 +23,11 @@ exports.Authentication = function (req, res, next) {
 
 exports.CreateToken = function(user){
     const payload = {
-        id: user._id,
+        sub: user._id,
         iat: moment().unix(),
         exp: moment().add(14,'years').unix()
     }
 
-    return jwt.encode(payload,token_secret);
+    return jwt.encode(payload,tokenSecret);
 
 }
