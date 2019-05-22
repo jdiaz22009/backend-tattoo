@@ -4,7 +4,7 @@ const moment = require('moment');
 const tokenSecret = require('./secret').TOKEN_SECRET;
 
 exports.Authentication = function (req, res, next) {
-    if (!req.header.authorization) {
+    if (!req.headers.authorization) {
         return res.status(403).send({ message: 'No estas logueado' });
     } else {
         var token = req.headers.authorization.replace(/[""]+/g, '');
