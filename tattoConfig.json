@@ -1,0 +1,18 @@
+{
+  "apps" : [{
+    "name"        : "app",
+    "script"      : "./src/bin/dev",
+    "watch"       : true,
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production" : {
+       "NODE_ENV": "production"
+    }
+  },{
+    "name"       : "tatto-auth",
+    "script"     : "./src/bin/auth",
+    "watch"       : true,
+    "exec_mode"  : "cluster"
+  }]
+}
