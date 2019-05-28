@@ -1,10 +1,22 @@
 'use strict'
-const service = require('./service');
+const service = require('./services');
 const controller = {}
 
-controller.register = function(req, res, next){
-    const {body} = req;
+controller.register = function (req, res, next) {
+    const { body } = req;
     service.register(body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error)
+
+        })
+}
+
+controller.login = function (req, res, next) {
+    const { body } = req
+    service.login(body)
     .then(response => {
         res.status(200).send(response);
     })

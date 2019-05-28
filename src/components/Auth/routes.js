@@ -5,5 +5,6 @@ const api = express.Router();
 const user = require('./users/v1/controller');
 
 api.post('/v1/auth/register',user.register);
+api.post('/v1/auth/login',user.login);
 
 module.exports = api

@@ -24,6 +24,8 @@ exports.Authentication = function (req, res, next) {
 exports.CreateToken = function(user){
     const payload = {
         sub: user._id,
+        email: user.email,
+        rol: user.rol,
         iat: moment().unix(),
         exp: moment().add(14,'years').unix()
     }
