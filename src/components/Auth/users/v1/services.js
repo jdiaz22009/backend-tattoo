@@ -49,4 +49,27 @@ services.login = function (data) {
     })
   })
 }
+
+services.isActiveTatto = function (id_tatto) {
+  return new Promise((resolve, reject) => {
+    Users.findById(id_tatto, function (error, findTatto) {
+      if (error) {
+        return reject({ code: 500, status: 'Internal server error', error })
+      } else {
+        if (!findTatto) {
+          return reject({ code: 400, status: 'Bad Request', message: 'user does not exist' })
+        } else {
+          Users.findByIdAndUpdate(findTatto._id, { isactive: true }, { new: true }, function (error, userUpdate) {
+            if (error) {
+              return reject({ code: 500, status: 'Internal server error', error })
+            } else {
+              return resolve({ code: 200, status: 'OK', message: 'user updated status activated', userUpdate })
+            }
+          })
+        }
+      }
+    })
+
+  })
+}
 module.exports = services;

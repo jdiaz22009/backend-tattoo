@@ -11,10 +11,12 @@ const UserSchema = Schema({
   phone: { type: Number, default: 0 },
   password: { type: String, default: '' },
   rol: { type: Number, default: 0 }, // 1. admin , 2. tatuador
-  isactive: {type:Boolean, default: false },
+  isactive: { type: Boolean, default: false },
   date_create: { type: String, default: 0 },
   date_update: { type: String, default: 0 }
 });
+
+
 
 
 
