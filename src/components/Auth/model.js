@@ -1,4 +1,3 @@
-'use stritc'
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema
@@ -17,8 +16,27 @@ const UserSchema = Schema({
 });
 
 
-
-
+const OrderWork = Schema({
+  id_user: { type: Schema.Types.ObjectId, ref: 'users' },
+  orderWork: [
+    {
+      skup_order: { type: Number, default: 0 },
+      nameClient: { type: String, default: '' },
+      lastNameClient: { type: String, default: '' },
+      address: { type: String, default: '' },
+      age: { type: Number, default: 0 },
+      phone: { type: Number, default: 0 },
+      url_firma: { type: String, default: '' },
+      numberSession: { type: String, default: 0 },
+      nameTutor: { type: String, default: '' },
+      lastNameTutor: { type: String, default: '' },
+      phoneTutor: { type: String, default: '' },
+      urlFirmaTutor: { type: String, default: 0 },
+    },
+  ],
+  photoUrlTattoStart: { type: String, default: '' },
+  photoUrlTattoFinish: { type: String, default: '' },
+})
 
 UserSchema.methods.toJSON = function () {
   const userThis = this;
@@ -31,7 +49,9 @@ UserSchema.methods.toJSON = function () {
 UserSchema.plugin(uniqueValidator);
 
 var userSchema = mongoose.model('users', UserSchema);
+var orderWork = mongoose.model('orderWork', OrderWork);
 
 module.exports.userSchema = userSchema;
+module.exports.orderWork = orderWork;
 
 

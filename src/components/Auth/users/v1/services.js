@@ -72,4 +72,5 @@ services.isActiveTatto = function (id_tatto) {
 
   })
 }
+
 module.exports = services;
