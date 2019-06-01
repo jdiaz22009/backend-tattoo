@@ -10,9 +10,10 @@ const UserSchema = Schema({
   phone: { type: Number, default: 0 },
   password: { type: String, default: '' },
   rol: { type: Number, default: 0 }, // 1. admin , 2. tatuador
-  isactive: { type: Boolean, default: false },
-  date_create: { type: String, default: 0 },
-  date_update: { type: String, default: 0 }
+  isactive: { type: Boolean, default: false }, // false: no activado , true: activado
+  state: { type: Boolean },  // false : borrador, true: no borrado
+  date_create: { type: String, default: '' },
+  date_update: { type: String, default: '' }
 });
 
 
@@ -27,7 +28,7 @@ const OrderWork = Schema({
       age: { type: Number, default: 0 },
       phone: { type: Number, default: 0 },
       url_firma: { type: String, default: '' },
-      numberSession: { type: String, default: 0 },
+      numberSession: { type: Number, default: 0 },
       nameTutor: { type: String, default: '' },
       lastNameTutor: { type: String, default: '' },
       phoneTutor: { type: String, default: '' },
@@ -36,6 +37,16 @@ const OrderWork = Schema({
   ],
   photoUrlTattoStart: { type: String, default: '' },
   photoUrlTattoFinish: { type: String, default: '' },
+  date_create: { type: String, default: '' },
+  date_update: { type: String, default: '' },
+  state: { type: Boolean, default: false }
+})
+
+const PortafolioSchema = Schema({
+  myPhotoWork: [{ type: String, default: '' }],
+  myFavorite: [{ type: String, default: '' }],
+  date_create: { type: String, default: '' },
+  date_update: { type: String, default: '' },
 })
 
 UserSchema.methods.toJSON = function () {
@@ -50,8 +61,7 @@ UserSchema.plugin(uniqueValidator);
 
 var userSchema = mongoose.model('users', UserSchema);
 var orderWork = mongoose.model('orderWork', OrderWork);
-
+var portafolioSchema = mongoose.model('portafolio', PortafolioSchema);
 module.exports.userSchema = userSchema;
 module.exports.orderWork = orderWork;
-
-
+module.exports.portafolioSchema = portafolioSchema;
