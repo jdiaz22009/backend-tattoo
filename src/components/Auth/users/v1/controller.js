@@ -2,6 +2,8 @@
 const service = require('./services');
 const controller = {}
 
+
+//? general api
 controller.register = function (req, res, next) {
   const { body } = req;
   service.register(body)
@@ -26,6 +28,38 @@ controller.login = function (req, res, next) {
     })
 }
 
+//? api movil
+controller.order_work = function (req, res, next) {
+  const { body } = req
+  const { sub } = req.user
+  service.openWork(sub, body)
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error)
+    })
+}
+
+controller.getOrderWork = function (req, res, next) {
+  const { sub } = req.user
+  service.getOpenWork(sub)
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error)
+    })
+}
+
+
+
+
+
+
+
+
+//? api admin
 controller.isActive = function (req, res, next) {
   const { sub } = req.user
   service.isActiveTatto(sub)
@@ -37,5 +71,6 @@ controller.isActive = function (req, res, next) {
 
     })
 }
+
 
 module.exports = controller

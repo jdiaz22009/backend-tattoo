@@ -14,24 +14,28 @@ const app = express();
 const dbUrl = config.db.db;
 const port = config.server.port;
 
-app.use(bodyParse.json({ limit: '100mb'}));
-app.use(bodyParse.urlencoded({ extended: true}));
+app.use(bodyParse.json({ limit: '100mb' }));
+app.use(bodyParse.urlencoded({ extended: true }));
 app.use(bodyParse.json());
 
-mongoose.connect(dbUrl,{ autoIndex: false, useCreateIndex:true,useNewUrlParser:true})
-mongoose.connection.on('connected',function(){
+mongoose.connect(dbUrl,
+    { autoIndex: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useFindAndModify: false })
+mongoose.connection.on('connected', function () {
     log("Mongose connection is open", dbUrl)
-    app.listen(port,function(){
+    app.listen(port, function () {
         log(`[tatto - auth] listen on port http://localhots:${port}`)
     });
 });
 
-mongoose.connection.on('Disconnected', function(){
+mongoose.connection.on('Disconnected', function () {
     log("Mongoose is disconnected")
 });
 
-process.on('SIGINT',function(){
-    mongoose.connection.close(function(){
+process.on('SIGINT', function () {
+    mongoose.connection.close(function () {
         debug(`Connection ERROR`);
         log("Mongoose connection is disconnected due to application termination");
         process.exit(0)
@@ -41,6 +45,6 @@ process.on('SIGINT',function(){
 app.use(morgan('dev'));
 app.use(cors());
 app.use(fileUpload());
-app.use('/api',routes);
+app.use('/api', routes);
 
 module.exports = app;

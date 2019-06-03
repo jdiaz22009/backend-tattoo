@@ -19,26 +19,29 @@ const UserSchema = Schema({
 
 const OrderWork = Schema({
   id_user: { type: Schema.Types.ObjectId, ref: 'users' },
+  skup_order: { type: Number, default: 0 },
   orderWork: [
     {
-      skup_order: { type: Number, default: 0 },
-      nameClient: { type: String, default: '' },
-      lastNameClient: { type: String, default: '' },
-      address: { type: String, default: '' },
+      nameClient: { type: String, default: null },
+      lastNameClient: { type: String, default: null },
+      address: { type: String, default: null },
       age: { type: Number, default: 0 },
       phone: { type: Number, default: 0 },
-      url_firma: { type: String, default: '' },
+      type_document: { type: String, default: null },
+      document: { type: Number, default: 0 },
+      url_firma: { type: String, default: null },
       numberSession: { type: Number, default: 0 },
-      nameTutor: { type: String, default: '' },
-      lastNameTutor: { type: String, default: '' },
-      phoneTutor: { type: String, default: '' },
-      urlFirmaTutor: { type: String, default: 0 },
+      nameTutor: { type: String, default: null },
+      lastNameTutor: { type: String, default: null },
+      phoneTutor: { type: String, default: null },
+      urlFirmaTutor: { type: String, default: null }
     },
   ],
-  photoUrlTattoStart: { type: String, default: '' },
-  photoUrlTattoFinish: { type: String, default: '' },
-  date_create: { type: String, default: '' },
-  date_update: { type: String, default: '' },
+  totalTatto: { type: Number, default: 0 },
+  photoUrlTattoStart: { type: String, default: null },
+  photoUrlTattoFinish: { type: String, default: null },
+  date_create: { type: String, default: null },
+  date_update: { type: String, default: null },
   state: { type: Boolean, default: false }
 })
 

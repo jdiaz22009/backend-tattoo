@@ -23,7 +23,7 @@ mongoose.connect(dbUrl,{ autoIndex: false, useCreateIndex:true,useNewUrlParser:t
 mongoose.connection.on('connected',function(){
     log("Mongose connection is open", dbUrl)
     app.listen(port,function(){
-        log(`[tatto - auth] listen on port http://localhots:${port}`)
+        log(`[tatto - guides] listen on port http://localhots:${port}`)
     });
 });
 
