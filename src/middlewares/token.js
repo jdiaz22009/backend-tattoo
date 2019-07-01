@@ -11,10 +11,10 @@ exports.Authentication = function (req, res, next) {
         try {
             var payload = jwt.decode(token, tokenSecret);
             if (payload.exp <= moment().unix()) {
-                return res.status(401).send({ message: "El token ha caducado" })
+                return res.status(401).send({ message: 'El token ha caducado' })
             }
         } catch (error) {
-            return res.status(401).send({ message: "El token no es valido" })
+            return res.status(401).send({ message: 'El token no es valido' })
         }
         req.user = payload;
         next();
@@ -32,10 +32,10 @@ exports.AuthenticationAdmin = function (req, res, next) {
                 return res.status(403).send({message:'no eres un administrador', status: 'Acceso prohibido o insuficientes permisos.'})
             }
             if (payload.exp <= moment().unix()) {
-                return res.status(401).send({ message: "El token ha caducado" })
+                return res.status(401).send({ message: 'El token ha caducado' })
             }
         } catch (error) {
-            return res.status(401).send({ message: "El token no es valido" })
+            return res.status(401).send({ message: 'El token no es valido' })
         }
         req.user = payload;
         next();

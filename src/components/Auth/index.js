@@ -24,20 +24,20 @@ mongoose.connect(dbUrl,
       useNewUrlParser: true,
       useFindAndModify: false })
 mongoose.connection.on('connected', function () {
-    log("Mongose connection is open", dbUrl)
+    log('Mongose connection is open', dbUrl)
     app.listen(port, function () {
         log(`[tatto - auth] listen on port http://localhots:${port}`)
     });
 });
 
 mongoose.connection.on('Disconnected', function () {
-    log("Mongoose is disconnected")
+    log('Mongoose is disconnected')
 });
 
 process.on('SIGINT', function () {
     mongoose.connection.close(function () {
         debug(`Connection ERROR`);
-        log("Mongoose connection is disconnected due to application termination");
+        log('Mongoose connection is disconnected due to application termination');
         process.exit(0)
     });
 });

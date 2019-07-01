@@ -8,6 +8,10 @@ const UserSchema = Schema({
   document: { type: Number, default: 0, unique: true },
   email: { type: String, default: '', unique: true },
   phone: { type: Number, default: 0 },
+  alias: {type:String, default: ''},
+  ageExp: {type:Number, default:''},
+  urlFacebook: {type:String,default:''},
+  urlInstagram: {type:String, default:''},
   password: { type: String, default: '' },
   rol: { type: Number, default: 0 }, // 1. admin , 2. tatuador
   isactive: { type: Boolean, default: false }, // false: no activado , true: activado
