@@ -37,7 +37,7 @@ services.register = data =>
               return resolve({
                 token: middlewares(user),
                 code: 201,
-                status: "OK",
+                status: "Create user",
                 user
               });
             }
