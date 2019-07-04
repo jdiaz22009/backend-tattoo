@@ -1,5 +1,6 @@
 "use strict";
 const service = require("./services");
+const email = require("../../../../email/libs/libs");
 const controller = {};
 
 //? general api
@@ -55,7 +56,7 @@ controller.getOrderWork = (req, res, next) => {
 
 controller.validEmail = (req, res, next) => {
   const { body } = req;
-  console.log(body)
+  console.log(body);
   service
     .validEmailExist(body)
     .then(response => {
@@ -67,10 +68,24 @@ controller.validEmail = (req, res, next) => {
 };
 
 //? api admin
-controller.isActive = function(req, res, next) {
+controller.isActive = (req, res, next) => {
   const { sub } = req.user;
   service
     .isActiveTatto(sub)
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+};
+
+controller.emailTatto = (req, res, next) => {
+  const { body } = req;
+  console.log(body)
+  let file = 'accountTatto'
+  email
+    .email(body,file)
     .then(response => {
       res.status(200).send(response);
     })

@@ -19,5 +19,6 @@ api.get('/v1/auth/getOrderWork', middlewares, user.getOrderWork);
 
 //? action admin
 api.put('/v1/auth/isActive', middlewaresAdmin, user.isActive);
+api.post('/v1/auth/emailTatto',middlewaresAdmin, user.emailTatto)
 
 module.exports = api
