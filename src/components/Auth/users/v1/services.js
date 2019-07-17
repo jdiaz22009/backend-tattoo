@@ -10,10 +10,10 @@ const services = {};
 services.register = data =>
   new Promise((resolve, reject) => {
     var currentDate = moment().format();
-    data.date_create = currentDate;
-    data.date_update = currentDate;
+    data["date_create"] = currentDate;
+    data["date_update"] = currentDate;
     const createUser = new Users(data);
-    Users.findOne({ email: data.email }, function(error, findUser) {
+    Users.findOne({ email: data["email"] }, function(error, findUser) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -25,7 +25,7 @@ services.register = data =>
             findUser
           });
         } else {
-          createUser.password = bcrypt.hashSync(data.password, 10);
+          createUser["password"] = bcrypt.hashSync(data["password"], 10);
           Users.create(createUser, function(error, user) {
             if (error) {
               return reject({
@@ -49,16 +49,19 @@ services.register = data =>
 
 services.login = data =>
   new Promise((resolve, reject) => {
-    Users.findOne({ email: data.email }, function(error, findUser) {
+    Users.findOne({ email: data["email"] }, function(error, findUser) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
-        let password = bcrypt.compareSync(data.password, findUser.password);
+        let password = bcrypt.compareSync(
+          data["password"],
+          findUser["password"]
+        );
         if (!password) {
           return reject({
             code: 400,
             status: "Bad Request",
-            message: "invalid credential"
+            message: "Invalid credential"
           });
         } else {
           return resolve({
@@ -88,13 +91,15 @@ services.openWork = (sub, data) =>
           });
         } else {
           let currentDate = moment().format();
-          let skup_random = Math.floor(Math.random() * (1000 * 10) + 5);
-          data.date_create = currentDate;
-          data.date_update = currentDate;
-          data.skup_order = skup_random;
-          data.id_user = userFind._id;
+          let skup_random = Math.floor(Math.random() * (1000 * 100) + 5);
+          data["date_create"] = currentDate;
+          data["date_update"] = currentDate;
+          data["orderWork"]["skup_order"] = skup_random;
+          data["orderWork"]["state"] = true;
+          data["state"] = true;
+          data["id_user"] = userFind._id;
           orderWork
-            .findOne({ id_user: userFind._id })
+            .findOne({ id_user: userFind["_id"] })
             .exec(function(error, findWork) {
               if (error) {
                 return reject({
@@ -123,8 +128,8 @@ services.openWork = (sub, data) =>
                 } else {
                   orderWork
                     .findByIdAndUpdate(
-                      findWork._id,
-                      { $push: { orderWork: data.orderWork } },
+                      findWork["_id"],
+                      { $push: { orderWork: data["orderWork"] } },
                       { new: true }
                     )
                     .exec(function(error, updateOrder) {
@@ -164,7 +169,7 @@ services.getOpenWork = sub =>
           });
         } else {
           orderWork
-            .findOne({ id_user: findUser._id })
+            .findOne({ id_user: findUser["_id"] })
             .exec(function(error, findOrder) {
               if (error) {
                 return reject({
@@ -191,7 +196,7 @@ services.getOpenWork = sub =>
 
 services.validEmailExist = data =>
   new Promise((resolve, reject) => {
-    Users.findOne({ email: data.email }).exec((err, res) => {
+    Users.findOne({ email: data["email"] }).exec((err, res) => {
       if (err) {
         return reject({ code: 500, status: "Internal server error", err });
       } else {
@@ -223,7 +228,7 @@ services.isActiveTatto = id_tatto =>
           });
         } else {
           Users.findByIdAndUpdate(
-            findTatto._id,
+            findTatto["_id"],
             { isactive: true },
             { new: true },
             function(error, userUpdate) {

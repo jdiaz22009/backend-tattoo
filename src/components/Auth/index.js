@@ -36,7 +36,6 @@ mongoose.connection.on('Disconnected', function () {
 
 process.on('SIGINT', function () {
     mongoose.connection.close(function () {
-        debug(`Connection ERROR`);
         log('Mongoose connection is disconnected due to application termination');
         process.exit(0)
     });

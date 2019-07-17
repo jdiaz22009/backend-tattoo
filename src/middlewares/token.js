@@ -48,7 +48,7 @@ exports.CreateToken = function(user){
         email: user.email,
         rol: user.rol,
         iat: moment().unix(),
-        exp: moment().add(14,'years').unix()
+        exp: moment().add(1,'years').unix()
     }
 
     return jwt.encode(payload,tokenSecret);

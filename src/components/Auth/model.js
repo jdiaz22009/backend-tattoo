@@ -1,62 +1,63 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
+const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
-  name: { type: String, default: '' },
-  last_name: { type: String, default: '' },
+  name: { type: String, default: "" },
+  last_name: { type: String, default: "" },
   document: { type: Number, default: 0, unique: true },
-  email: { type: String, default: '', unique: true },
+  email: { type: String, default: "", unique: true },
   phone: { type: Number, default: 0 },
-  alias: {type:String, default: ''},
-  ageExp: {type:Number, default:''},
-  urlFacebook: {type:String,default:''},
-  urlInstagram: {type:String, default:''},
-  password: { type: String, default: '' },
+  alias: { type: String, default: "" },
+  ageExp: { type: Number, default: "" },
+  urlFacebook: { type: String, default: "" },
+  urlInstagram: { type: String, default: "" },
+  password: { type: String, default: "" },
   rol: { type: Number, default: 0 }, // 1. admin , 2. tatuador
   isactive: { type: Boolean, default: false }, // false: no activado , true: activado
-  state: { type: Boolean },  // false : borrador, true: no borrado
-  date_create: { type: String, default: '' },
-  date_update: { type: String, default: '' }
+  state: { type: Boolean }, // false : borrador, true: no borrado
+  date_create: { type: String, default: "" },
+  date_update: { type: String, default: "" }
 });
 
-
 const OrderWork = Schema({
-  id_user: { type: Schema.Types.ObjectId, ref: 'users' },
-  skup_order: { type: Number, default: 0 },
+  id_user: { type: Schema.Types.ObjectId, ref: "users" },
   orderWork: [
     {
-      nameClient: { type: String, default: null },
-      lastNameClient: { type: String, default: null },
-      address: { type: String, default: null },
+      skup_order: { type: Number, default: 0 },
+      nameClient: { type: String, default: "" },
+      lastNameClient: { type: String, default: "" },
+      address: { type: String, default: "" },
       age: { type: Number, default: 0 },
       phone: { type: Number, default: 0 },
-      type_document: { type: String, default: null },
+      type_document: { type: String, default: "" },
       document: { type: Number, default: 0 },
-      url_firma: { type: String, default: null },
+      url_firma: { type: String, default: "" },
       numberSession: { type: Number, default: 0 },
-      nameTutor: { type: String, default: null },
-      lastNameTutor: { type: String, default: null },
-      phoneTutor: { type: String, default: null },
-      urlFirmaTutor: { type: String, default: null }
-    },
+      nameTutor: { type: String, default: "" },
+      lastNameTutor: { type: String, default: "" },
+      phoneTutor: { type: Number, default: 0 },
+      urlFirmaTutor: { type: String, default: "" },
+      priceTatto: { type: Number, default: 0 },
+      photoUrlTattoStart: { type: String, default: "" },
+      photoUrlTattoFinish: { type: String, default: "" },
+      state: { type: Boolean, default: false }
+    }
   ],
   totalTatto: { type: Number, default: 0 },
-  photoUrlTattoStart: { type: String, default: null },
-  photoUrlTattoFinish: { type: String, default: null },
-  date_create: { type: String, default: null },
-  date_update: { type: String, default: null },
+  date_create: { type: String, default: "" },
+  date_update: { type: String, default: "" },
   state: { type: Boolean, default: false }
-})
+});
 
 const PortafolioSchema = Schema({
-  myPhotoWork: [{ type: String, default: '' }],
-  myFavorite: [{ type: String, default: '' }],
-  date_create: { type: String, default: '' },
-  date_update: { type: String, default: '' },
-})
+  myPhotoWork: [{ type: String, default: "" }],
+  myFavorite: [{ type: String, default: "" }],
+  date_create: { type: String, default: "" },
+  date_update: { type: String, default: "" }
+});
 
-UserSchema.methods.toJSON = function () {
+UserSchema.methods.toJSON = function() {
   const userThis = this;
   const userObject = userThis.toObject();
   delete userObject.password;
@@ -66,9 +67,9 @@ UserSchema.methods.toJSON = function () {
 
 UserSchema.plugin(uniqueValidator);
 
-var userSchema = mongoose.model('users', UserSchema);
-var orderWork = mongoose.model('orderWork', OrderWork);
-var portafolioSchema = mongoose.model('portafolio', PortafolioSchema);
+var userSchema = mongoose.model("users", UserSchema);
+var orderWork = mongoose.model("orderWork", OrderWork);
+var portafolioSchema = mongoose.model("portafolio", PortafolioSchema);
 module.exports.userSchema = userSchema;
 module.exports.orderWork = orderWork;
 module.exports.portafolioSchema = portafolioSchema;
