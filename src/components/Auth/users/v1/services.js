@@ -77,6 +77,43 @@ services.login = data =>
 
 //?action movil
 
+services.sendForgotPassword = (data, sub) =>
+  new Promise((resolve, reject) => {
+    Users.findById(sub).exec((err, userF) => {
+      if (err) {
+        return reject({ code: 500, status: "Internal server error", err });
+      } else {
+        if (userF) {
+          const password = bcrypt.hashSync(data["password"], 10);
+          Users.findByIdAndUpdate(userF["_id"], {
+            password
+          }).exec((err, updatePass) => {
+            if (err) {
+              return reject({
+                code: 500,
+                status: "Internal server error",
+                error
+              });
+            } else {
+              return resolve({
+                code: 201,
+                status: "Successfully update",
+                updatePass
+              });
+            }
+          });
+          console.log("el password es: ", password);
+        } else {
+          return resolve({
+            code: 404,
+            status: "Not Found",
+            message: "User does not exist"
+          });
+        }
+      }
+    });
+  });
+
 services.openWork = (sub, data) =>
   new Promise((resolve, reject) => {
     Users.findById(sub).exec(function(error, userFind) {

@@ -82,16 +82,29 @@ controller.isActive = (req, res, next) => {
 
 controller.emailTatto = (req, res, next) => {
   const { body } = req;
-  console.log(body)
-  let file = 'accountTatto'
+  console.log(body);
+  let file = "accountTatto";
   email
-    .email(body,file)
+    .email(body, file)
     .then(response => {
       res.status(200).send(response);
     })
     .catch(error => {
       res.status(500).send(error);
     });
+};
+
+controller.forgotPassword = (req, res, next) => {
+  const { body, params} = req;
+  service.sendForgotPassword(body, params['id'])
+  .then(resp =>{
+    console.log(JSON.stringify(resp), 'res')
+    res.status(200).send(resp);
+  })
+  .catch(e =>{
+    console.error(e)
+    res.status(500).send(e);
+  })
 };
 
 module.exports = controller;
