@@ -28,6 +28,7 @@ const OrderWork = Schema({
       nameClient: { type: String, default: "" },
       lastNameClient: { type: String, default: "" },
       address: { type: String, default: "" },
+      email: { type: String, default: "" },
       phone: { type: Number, default: 0 },
       type_document: { type: String, default: "" },
       document: { type: Number, default: 0 },
