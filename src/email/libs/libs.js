@@ -6,7 +6,6 @@ const libs = {};
 
 libs.email = (data, file) =>
   new Promise((resolve, reject) => {
-    console.log(data, "libs");
     let transport = nodemailer.createTransport({
       service: "gmail",
       auth: {

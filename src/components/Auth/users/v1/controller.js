@@ -94,6 +94,20 @@ controller.emailTatto = (req, res, next) => {
     });
 };
 
+controller.emailTattoOrder = (req, res, next) => {
+  const { body } = req;
+  console.log(body);
+  let file = "confirmOrders";
+  email
+    .email(body, file)
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+};
+
 controller.forgotPassword = (req, res, next) => {
   const { body, params} = req;
   service.sendForgotPassword(body, params['id'])

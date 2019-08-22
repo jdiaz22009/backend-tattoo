@@ -1,6 +1,0 @@
-LOCALHOST = http://127.0.0.1
-ENVIROMENT = dev
-AUTHPORT = 3001
-GUIDESPORT = 3002
-DBAUTHMONGO = mongodb+srv://admin:d3v3l0p3r@cluster0-dfj8d.mongodb.net/tatto-auth?retryWrites=true&w=majority
-
