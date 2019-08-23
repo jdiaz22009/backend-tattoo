@@ -8,7 +8,7 @@ module.exports = {
         db: process.env.DBAUTHMONGO || 'mongodb+srv://admin:d3v3l0p3r@cluster0-dfj8d.mongodb.net/tatto-auth?retryWrites=true&w=majority',
     },
     server: {
-        port: process.env.AUTHPORT || 3001,
+        port: process.env.PORT || 3001,
         env: process.env.ENVIROMENT || 'dev'
     },
 }
