@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/bin/dev",
+    "start": "node src/components/Auth",
     "dev": "nodemon src/bin/dev",
     "auth": "nodemon src/bin/auth"
   },
