@@ -18,7 +18,7 @@ libs.email = (data, file) =>
         console.error(err, "error");
         return reject({ code: 401, status: "Unauthorized", err });
       } else {
-        let templateUrl = path.join(__dirname, `../${file}/html`);
+        let templateUrl = path.join(__dirname, `../${file}/html.html`);
         const emails = new email();
         emails
           .render(templateUrl, data)
