@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const config = require('../../db/db_auth');
 const cors = require('cors');
 const routes = require('./routes');
+const path = require('path')
 const log = console.log;
 
 const app = express();
@@ -27,6 +28,7 @@ mongoose.connection.on('connected', function () {
     log('Mongose connection is open', dbUrl)
     app.listen(port, function () {
         log(`[tatto - auth] listen on port http://localhots:${port}`)
+        app.use(express.static(path.join(__dirname, '../../../public')))
     });
 });
 
