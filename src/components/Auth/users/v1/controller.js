@@ -97,7 +97,7 @@ controller.emailTatto = (req, res, next) => {
 controller.emailTattoOrder = (req, res, next) => {
   const { body } = req;
   console.log(body);
-  let file = "confirmOrders/html.html";
+  let file = "confirmOrders/html";
   email
     .email(body, file)
     .then(response => {
