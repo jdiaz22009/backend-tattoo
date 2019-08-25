@@ -46,8 +46,6 @@ process.on('SIGINT', function () {
 app.use(morgan('dev'));
 app.use(cors());
 app.use(fileUpload());
-app.set('view engine', 'html , pug');
-app.set('views', '../../email/confirmOrders');
 app.use('/api', routes);
 
 

@@ -83,7 +83,7 @@ controller.isActive = (req, res, next) => {
 controller.emailTatto = (req, res, next) => {
   const { body } = req;
   console.log(body);
-  let file = "accountTatto";
+  let file = "accountTatto/html";
   email
     .email(body, file)
     .then(response => {
@@ -97,7 +97,7 @@ controller.emailTatto = (req, res, next) => {
 controller.emailTattoOrder = (req, res, next) => {
   const { body } = req;
   console.log(body);
-  let file = "confirmOrders";
+  let file = "confirmOrders/html.html";
   email
     .email(body, file)
     .then(response => {
