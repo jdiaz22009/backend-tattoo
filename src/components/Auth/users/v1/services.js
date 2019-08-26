@@ -9,6 +9,7 @@ const services = {};
 
 services.register = data =>
   new Promise((resolve, reject) => {
+    
     var currentDate = moment().format();
     data["date_create"] = currentDate;
     data["date_update"] = currentDate;
@@ -28,6 +29,7 @@ services.register = data =>
           createUser["password"] = bcrypt.hashSync(data["password"], 10);
           Users.create(createUser, function(error, user) {
             if (error) {
+              console.error('Error',error)
               return reject({
                 code: 500,
                 status: "Internal server error",

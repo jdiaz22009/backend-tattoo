@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = Schema({
   name: { type: String, default: "" },
   last_name: { type: String, default: "" },
-  document: { type: Number, default: 0, unique: true },
+  document: { type: Number, unique: true },
   email: { type: String, default: "", unique: true },
   phone: { type: Number, default: 0 },
   alias: { type: String, default: "" },
@@ -57,6 +57,9 @@ const PortafolioSchema = Schema({
   date_update: { type: String, default: "" }
 });
 
+
+
+
 UserSchema.methods.toJSON = function() {
   const userThis = this;
   const userObject = userThis.toObject();
@@ -65,8 +68,11 @@ UserSchema.methods.toJSON = function() {
   return userObject;
 };
 
-UserSchema.plugin(uniqueValidator);
 
+
+
+
+UserSchema.plugin(uniqueValidator);
 var userSchema = mongoose.model("users", UserSchema);
 var orderWork = mongoose.model("orderWork", OrderWork);
 var portafolioSchema = mongoose.model("portafolio", PortafolioSchema);
