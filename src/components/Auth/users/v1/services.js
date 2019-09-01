@@ -16,6 +16,8 @@ services.register = data =>
     const createUser = new Users(data);
     Users.findOne({ email: data["email"] }, function(error, findUser) {
       if (error) {
+        console.error('Error 1',error)
+
         return reject({ code: 500, status: "Internal server error", error });
       } else {
         if (findUser) {
