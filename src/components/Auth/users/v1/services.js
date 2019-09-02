@@ -9,14 +9,14 @@ const services = {};
 
 services.register = data =>
   new Promise((resolve, reject) => {
-    
+
     var currentDate = moment().format();
     data["date_create"] = currentDate;
     data["date_update"] = currentDate;
     const createUser = new Users(data);
-    Users.findOne({ email: data["email"] }, function(error, findUser) {
+    Users.findOne({ email: data["email"] }, function (error, findUser) {
       if (error) {
-        console.error('Error 1',error)
+        console.error('Error 1', error)
 
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -29,9 +29,9 @@ services.register = data =>
           });
         } else {
           createUser["password"] = bcrypt.hashSync(data["password"], 10);
-          Users.create(createUser, function(error, user) {
+          Users.create(createUser, function (error, user) {
             if (error) {
-              console.error('Error',error)
+              console.error('Error', error)
               return reject({
                 code: 500,
                 status: "Internal server error",
@@ -53,7 +53,7 @@ services.register = data =>
 
 services.login = data =>
   new Promise((resolve, reject) => {
-    Users.findOne({ email: data["email"] }, function(error, findUser) {
+    Users.findOne({ email: data["email"] }, function (error, findUser) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -120,7 +120,7 @@ services.sendForgotPassword = (data, sub) =>
 
 services.openWork = (sub, data) =>
   new Promise((resolve, reject) => {
-    Users.findById(sub).exec(function(error, userFind) {
+    Users.findById(sub).exec(function (error, userFind) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -139,10 +139,10 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
-          data['totalTatto']+= data['orderWork']['priceTatto']
+          data['totalTatto'] += data['orderWork']['priceTatto']
           orderWork
             .findOne({ id_user: userFind["_id"] })
-            .exec(function(error, findWork) {
+            .exec(function (error, findWork) {
               if (error) {
                 return reject({
                   code: 500,
@@ -152,7 +152,7 @@ services.openWork = (sub, data) =>
               } else {
                 if (!findWork) {
                   var order_work = new orderWork(data);
-                  orderWork.create(order_work, function(error, createOrder) {
+                  orderWork.create(order_work, function (error, createOrder) {
                     if (error) {
                       return reject({
                         code: 500,
@@ -174,8 +174,9 @@ services.openWork = (sub, data) =>
                       { $push: { orderWork: data["orderWork"] } },
                       { new: true }
                     )
-                    .exec(function(error, updateOrder) {
+                    .exec(function (error, updateOrder) {
                       if (error) {
+                        console.error("error error", error)
                         return reject({
                           code: 500,
                           status: "Internal server error",
@@ -199,7 +200,7 @@ services.openWork = (sub, data) =>
 
 services.getOpenWork = sub =>
   new Promise((resolve, reject) => {
-    Users.findById(sub).exec(function(error, findUser) {
+    Users.findById(sub).exec(function (error, findUser) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -212,7 +213,7 @@ services.getOpenWork = sub =>
         } else {
           orderWork
             .findOne({ id_user: findUser["_id"] })
-            .exec(function(error, findOrder) {
+            .exec(function (error, findOrder) {
               if (error) {
                 return reject({
                   code: 500,
@@ -258,7 +259,7 @@ services.validEmailExist = data =>
 //? Acciones de super admin
 services.isActiveTatto = id_tatto =>
   new Promise((resolve, reject) => {
-    Users.findById(id_tatto, function(error, findTatto) {
+    Users.findById(id_tatto, function (error, findTatto) {
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
@@ -273,7 +274,7 @@ services.isActiveTatto = id_tatto =>
             findTatto["_id"],
             { isactive: true },
             { new: true },
-            function(error, userUpdate) {
+            function (error, userUpdate) {
               if (error) {
                 return reject({
                   code: 500,
