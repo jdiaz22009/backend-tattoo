@@ -44,6 +44,7 @@ const OrderWork = Schema({
       state: { type: Boolean, default: false }
     }
   ],
+  checkTermns: { type: Boolean, default: false},
   totalTatto: { type: Number, default: 0 },
   date_create: { type: String, default: '' },
   date_update: { type: String, default: '' },
