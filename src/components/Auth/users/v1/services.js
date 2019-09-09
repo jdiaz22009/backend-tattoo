@@ -61,8 +61,8 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
-        console.log('password'. data)
-        
+        console.log('password'.data)
+
         if (!password) {
           return reject({
             code: 400,
@@ -141,6 +141,7 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
+          data['totalTatto'] = data['totalTatto'] + data['orderWork']['priceTatto']
           console.log(data['orderWork']['priceTatto'], 'price')
           orderWork
             .findOne({ id_user: userFind["_id"] })
@@ -156,7 +157,7 @@ services.openWork = (sub, data) =>
                   var order_work = new orderWork(data);
                   orderWork.create(order_work, function (error, createOrder) {
                     if (error) {
-                      console.error("error error create" , error)
+                      console.error("error error create", error)
                       return reject({
                         code: 500,
                         status: "Internal server error",
