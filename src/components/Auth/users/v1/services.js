@@ -141,6 +141,7 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
+          console.log(data['orderWork']['priceTatto'], 'price')
           orderWork
             .findOne({ id_user: userFind["_id"] })
             .exec(function (error, findWork) {
