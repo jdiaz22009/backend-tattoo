@@ -141,7 +141,7 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
-          data['totalTatto'] = data['totalTatto'] + data['orderWork']['priceTatto']
+           data['totalTatto'] + data['orderWork']['priceTatto']
           console.log(data['orderWork']['priceTatto'], 'price')
           orderWork
             .findOne({ id_user: userFind["_id"] })
@@ -175,7 +175,9 @@ services.openWork = (sub, data) =>
                   orderWork
                     .findByIdAndUpdate(
                       findWork["_id"],
-                      { $push: { orderWork: data["orderWork"] } },
+                      { 
+                        totalTatto: data['totalTatto'],
+                        $push: { orderWork: data["orderWork"] } },
                       { new: true }
                     )
                     .exec(function (error, updateOrder) {
