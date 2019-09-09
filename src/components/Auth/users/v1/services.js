@@ -61,6 +61,8 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
+        console.log('password'. data)
+        
         if (!password) {
           return reject({
             code: 400,
