@@ -154,6 +154,7 @@ services.openWork = (sub, data) =>
                   var order_work = new orderWork(data);
                   orderWork.create(order_work, function (error, createOrder) {
                     if (error) {
+                      console.error("error error create" , error)
                       return reject({
                         code: 500,
                         status: "Internal server error",
