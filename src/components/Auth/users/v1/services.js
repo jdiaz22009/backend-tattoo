@@ -61,7 +61,7 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
-        console.log('password'.data)
+        console.log('password', password)
 
         if (!password) {
           return reject({
@@ -141,8 +141,7 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
-           data['totalTatto'] + data['orderWork']['priceTatto']
-          console.log(data['orderWork']['priceTatto'], 'price')
+          data['totalTatto'] += data['orderWork']['priceTatto']
           orderWork
             .findOne({ id_user: userFind["_id"] })
             .exec(function (error, findWork) {
@@ -172,12 +171,13 @@ services.openWork = (sub, data) =>
                     }
                   });
                 } else {
+                  console.log(findWork['totalTatto'] + data['orderWork']['priceTatto'], 'total total')
                   orderWork
                     .findByIdAndUpdate(
                       findWork["_id"],
-                      { 
-                        totalTatto: data['totalTatto'],
-                        $push: { orderWork: data["orderWork"] } },
+                      {
+                        $push: { orderWork: data["orderWork"] }
+                      },
                       { new: true }
                     )
                     .exec(function (error, updateOrder) {

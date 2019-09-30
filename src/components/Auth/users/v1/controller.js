@@ -18,12 +18,15 @@ controller.register = (req, res, next) => {
 
 controller.login = (req, res, next) => {
   const { body } = req;
+  console.log('body', body)
   service
     .login(body)
     .then(response => {
+      console.log(response, 'response')
       res.status(200).send(response);
     })
     .catch(error => {
+      console.error('error', error)
       res.status(500).send(error);
     });
 };
