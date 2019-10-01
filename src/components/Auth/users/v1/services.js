@@ -219,6 +219,7 @@ services.getOpenWork = sub =>
         } else {
           orderWork
             .findOne({ id_user: findUser["_id"] })
+            .populate({ path: 'id_user', model: Users })
             .exec(function (error, findOrder) {
               if (error) {
                 return reject({
