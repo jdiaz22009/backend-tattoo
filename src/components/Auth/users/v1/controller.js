@@ -112,16 +112,29 @@ controller.emailTattoOrder = (req, res, next) => {
 };
 
 controller.forgotPassword = (req, res, next) => {
-  const { body, params} = req;
+  const { body, params } = req;
   service.sendForgotPassword(body, params['id'])
-  .then(resp =>{
-    console.log(JSON.stringify(resp), 'res')
-    res.status(200).send(resp);
-  })
-  .catch(e =>{
-    console.error(e)
-    res.status(500).send(e);
-  })
+    .then(resp => {
+      console.log(JSON.stringify(resp), 'res')
+      res.status(200).send(resp);
+    })
+    .catch(e => {
+      console.error(e)
+      res.status(500).send(e);
+    })
+};
+controller.updateViewOrder = (req, res, next) => {
+  const { body } = req;
+  const { sub } = req.user;
+  service.updateViewOrder(sub, body)
+    .then(resp => {
+      console.log(JSON.stringify(resp), 'res')
+      res.status(200).send(resp);
+    })
+    .catch(e => {
+      console.error(e)
+      res.status(500).send(e);
+    })
 };
 
 module.exports = controller;

@@ -303,4 +303,41 @@ services.isActiveTatto = id_tatto =>
     });
   });
 
+services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
+  Users.findById(sub).exec((err, user) => {
+    if (err) {
+      return reject({
+        code: 400,
+        status: "Bad Request",
+        message: "user does not exist"
+      });
+    } else {
+      if (user) {
+        orderWork.findByIdAndUpdate(data['id_order'], data).exec((err, updateOrder) => {
+          if (err) {
+            return reject({
+              code: 400,
+              status: "Bad Request",
+              message: "user does not exist"
+            });
+          } else {
+            return resolve({
+              code: 200,
+              status: "OK",
+              message: "Order updated",
+              updateOrder
+            });
+          }
+        })
+      } else {
+        return resolve({
+          code: 404,
+          status: "Not found",
+          message: "User does not exist"
+        });
+      }
+    }
+  })
+})
+
 module.exports = services;
