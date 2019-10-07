@@ -313,7 +313,7 @@ services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
       });
     } else {
       if (user) {
-        orderWork.findByIdAndUpdate(data['id_order'], data).exec((err, updateOrder) => {
+        orderWork.findOne({ id_user: user['_id'] }).exec((err, findOrder) => {
           if (err) {
             return reject({
               code: 400,
@@ -321,12 +321,42 @@ services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
               message: "user does not exist"
             });
           } else {
-            return resolve({
-              code: 200,
-              status: "OK",
-              message: "Order updated",
-              updateOrder
-            });
+            let update = []
+            for (let i = 0; i < findOrder['orderWork'].length; i++) {
+              const element = findOrder['orderWork'][i];
+              if (element['skup_order'] === data['skup_order']) {
+                element['nameClient'] = data['nameClient']
+                element['lastNameClient'] = data['lastNameClient']
+                element['email'] = data['email']
+                element['phone'] = data['phone']
+              }
+              update.push(element)
+            }
+            console.log('update', update, 'data', data)
+            orderWork.findByIdAndUpdate(findOrder['_id'], { orderWork: update }, { new: true })
+              .exec((error, upOrder) => {
+                if (error) {
+                  return reject({
+                    code: 400,
+                    status: "Bad Request",
+                    message: "user does not exist"
+                  });
+                } else {
+                  return resolve({
+                    code: 200,
+                    status: "OK",
+                    message: "Order",
+                    upOrder
+                  });
+                }
+              })
+
+            // return resolve({
+            //   code: 200,
+            //   status: "OK",
+            //   message: "Order",
+            //   findOrder
+            // });
           }
         })
       } else {
