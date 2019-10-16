@@ -45,7 +45,7 @@ const OrderWork = Schema({
       state: { type: Boolean, default: false }
     }
   ],
-  checkTermns: { type: Boolean, default: false},
+  checkTermns: { type: Boolean, default: false },
   totalTatto: { type: Number, default: 0 },
   date_create: { type: String, default: '' },
   date_update: { type: String, default: '' },
@@ -58,16 +58,6 @@ const PortafolioSchema = Schema({
   date_create: { type: String, default: '' },
   date_update: { type: String, default: '' }
 });
-
-const GuideSchema = Schema({
-  nameGuide: { type: String, default: '' },
-  descGuide: { type: String, default: '' },
-
-})
-
-
-
-
 UserSchema.methods.toJSON = function () {
   const userThis = this;
   const userObject = userThis.toObject();
@@ -75,11 +65,6 @@ UserSchema.methods.toJSON = function () {
   delete userObject.__v;
   return userObject;
 };
-
-
-
-
-
 UserSchema.plugin(uniqueValidator);
 var userSchema = mongoose.model('users', UserSchema);
 var orderWork = mongoose.model('orderWork', OrderWork);

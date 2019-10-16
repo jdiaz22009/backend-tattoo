@@ -141,7 +141,6 @@ services.openWork = (sub, data) =>
           data["orderWork"]["state"] = true;
           data["state"] = true;
           data["id_user"] = userFind._id;
-          data['totalTatto'] += data['orderWork']['priceTatto']
           orderWork
             .findOne({ id_user: userFind["_id"] })
             .exec(function (error, findWork) {
@@ -171,7 +170,6 @@ services.openWork = (sub, data) =>
                     }
                   });
                 } else {
-                  console.log(findWork['totalTatto'] + data['orderWork']['priceTatto'], 'total total')
                   orderWork
                     .findByIdAndUpdate(
                       findWork["_id"],
@@ -332,7 +330,6 @@ services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
               }
               update.push(element)
             }
-            console.log('update', update, 'data', data)
             orderWork.findByIdAndUpdate(findOrder['_id'], { orderWork: update }, { new: true })
               .exec((error, upOrder) => {
                 if (error) {
@@ -350,13 +347,6 @@ services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
                   });
                 }
               })
-
-            // return resolve({
-            //   code: 200,
-            //   status: "OK",
-            //   message: "Order",
-            //   findOrder
-            // });
           }
         })
       } else {
