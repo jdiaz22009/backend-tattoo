@@ -58,6 +58,19 @@ const PortafolioSchema = Schema({
   date_create: { type: String, default: '' },
   date_update: { type: String, default: '' }
 });
+
+const GuideSchema = Schema({
+  nameGuide: { type: String, default: '' },
+  descGuide: { type: String, default: '' },
+  id_subGuide: { type: Schema.Types.ObjectId, ref: 'subguides' },
+  state: { type: Number, default: 1 }
+})
+
+const SubGuideSchema = Schema({
+  nameSubGuide: { type: String, default: '' },
+  descSubGuide: { type: String, default: '' },
+  state: { type: Number, default: 1 }
+})
 UserSchema.methods.toJSON = function () {
   const userThis = this;
   const userObject = userThis.toObject();
@@ -69,6 +82,11 @@ UserSchema.plugin(uniqueValidator);
 var userSchema = mongoose.model('users', UserSchema);
 var orderWork = mongoose.model('orderWork', OrderWork);
 var portafolioSchema = mongoose.model('portafolio', PortafolioSchema);
+var guideSchema = mongoose.model('guides', GuideSchema);
+var subGuideSchema = mongoose.model('subGuides', SubGuideSchema);
+
+module.exports.guideSchema = guideSchema;
+module.exports.subGuideSchema = subGuideSchema
 module.exports.userSchema = userSchema;
 module.exports.orderWork = orderWork;
 module.exports.portafolioSchema = portafolioSchema;

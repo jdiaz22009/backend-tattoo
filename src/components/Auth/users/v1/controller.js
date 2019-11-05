@@ -31,6 +31,22 @@ controller.login = (req, res, next) => {
     });
 };
 
+controller.createGuide = (req, res, next) => {
+  const { body } = req
+  console.log('body', body)
+  service.createGuide(null, body)
+    .then(response => {
+      console.log(response, 'response')
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      console.error('error', error)
+      res.status(500).send(error);
+    });
+}
+
+
+
 //? api movil
 controller.order_work = (req, res, next) => {
   const { body } = req;
@@ -69,6 +85,17 @@ controller.validEmail = (req, res, next) => {
       res.status(500).send(error);
     });
 };
+
+controller.getGuide = (req, res, next) => {
+  const { user } = req
+  service.getGuide(user['sub'])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+}
 
 //? api admin
 controller.isActive = (req, res, next) => {

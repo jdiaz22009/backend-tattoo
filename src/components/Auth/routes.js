@@ -10,12 +10,14 @@ const middlewaresAdmin = require("../../middlewares/token").AuthenticationAdmin;
 api.post("/v1/auth/register", user.register);
 api.post("/v1/auth/login", user.login);
 api.post("/v1/auth/validEmail", user.validEmail);
+api.post("/v1/auth/createGuide", user.createGuide);
 //? -------------------------------------------
 
 //? action app movil
 api.post("/v1/auth/sendForgotPassword/:id", user.forgotPassword);
 api.post("/v1/auth/createOrderWork", middlewares, user.order_work);
 api.get("/v1/auth/getOrderWork", middlewares, user.getOrderWork);
+api.get("/v1/auth/getGuide", middlewares, user.getGuide);
 api.post("/v1/auth/updateViewOrder", middlewares, user.updateViewOrder);
 
 //? action admin

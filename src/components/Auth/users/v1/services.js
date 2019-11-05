@@ -2,6 +2,7 @@
 
 const Users = require("../../model").userSchema;
 const orderWork = require("../../model").orderWork;
+const guideSchema = require("../../model").guideSchema;
 const middlewares = require("../../../../middlewares/token").CreateToken;
 const moment = require("moment");
 const bcrypt = require("bcrypt");
@@ -260,47 +261,6 @@ services.validEmailExist = data =>
       }
     });
   });
-
-//? Acciones de super admin
-services.isActiveTatto = id_tatto =>
-  new Promise((resolve, reject) => {
-    Users.findById(id_tatto, function (error, findTatto) {
-      if (error) {
-        return reject({ code: 500, status: "Internal server error", error });
-      } else {
-        if (!findTatto) {
-          return reject({
-            code: 400,
-            status: "Bad Request",
-            message: "user does not exist"
-          });
-        } else {
-          Users.findByIdAndUpdate(
-            findTatto["_id"],
-            { isactive: true },
-            { new: true },
-            function (error, userUpdate) {
-              if (error) {
-                return reject({
-                  code: 500,
-                  status: "Internal server error",
-                  error
-                });
-              } else {
-                return resolve({
-                  code: 200,
-                  status: "OK",
-                  message: "user updated status activated",
-                  userUpdate
-                });
-              }
-            }
-          );
-        }
-      }
-    });
-  });
-
 services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
   Users.findById(sub).exec((err, user) => {
     if (err) {
@@ -360,4 +320,119 @@ services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
   })
 })
 
+services.getGuide = (sub) => new Promise((resolve, reject) => {
+  Users.findById(sub).exec((err, userFind) => {
+    if (err) {
+      return reject({
+        code: 500,
+        status: "Internal server error",
+        error
+      });
+    } else {
+      if (userFind) {
+        guideSchema.find({ state: 1 }).exec((err, guideFind) => {
+          if (err) {
+            return reject({
+              code: 500,
+              status: "Internal server error",
+              error
+            })
+          } else {
+            return resolve({
+              code: 200,
+              status: "OK",
+              message: "GUIDE",
+              guideFind
+            });
+          }
+        })
+      } else {
+        return resolve({
+          code: 404,
+          status: "Not found",
+          message: "User does not exist"
+        });
+      }
+    }
+  })
+})
+
+//? Acciones de super admin
+services.isActiveTatto = id_tatto =>
+  new Promise((resolve, reject) => {
+    Users.findById(id_tatto, function (error, findTatto) {
+      if (error) {
+        return reject({ code: 500, status: "Internal server error", error });
+      } else {
+        if (!findTatto) {
+          return reject({
+            code: 400,
+            status: "Bad Request",
+            message: "user does not exist"
+          });
+        } else {
+          Users.findByIdAndUpdate(
+            findTatto["_id"],
+            { isactive: true },
+            { new: true },
+            function (error, userUpdate) {
+              if (error) {
+                return reject({
+                  code: 500,
+                  status: "Internal server error",
+                  error
+                });
+              } else {
+                return resolve({
+                  code: 200,
+                  status: "OK",
+                  message: "user updated status activated",
+                  userUpdate
+                });
+              }
+            }
+          );
+        }
+      }
+    });
+  });
+
+services.createGuide = (sub, data) => new Promise((resolve, reject) => {
+  // Users.findById(sub).exec((err, userFind) => {
+  //   if (err) {
+  //     return reject({
+  //       code: 500,
+  //       status: "Internal server error",
+  //       error
+  //     });
+  //   } else {
+  //     if (userFind) {
+  console.log(data, 'data data')
+  var guide = new guideSchema(data)
+  console.log(guide, 'guide')
+  guideSchema.create(guide, function (err, guideCreate) {
+    if (err) {
+      return reject({
+        code: 500,
+        status: "Internal server error",
+        error
+      });
+    } else {
+      return resolve({
+        code: 201,
+        status: "Successfully created",
+        guideCreate
+      });
+    }
+  })
+  // } else {
+  //   return resolve({
+  //     code: 404,
+  //     status: "Not found",
+  //     message: "User does not exist"
+  //   });
+  // }
+  // }
+  // })
+})
 module.exports = services;
