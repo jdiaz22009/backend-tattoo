@@ -62,10 +62,8 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
-        console.log('password', password)
-
         if (!password) {
-          return reject({
+          return resolve({
             code: 400,
             status: "Bad Request",
             message: "Invalid credential"
