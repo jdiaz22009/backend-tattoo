@@ -7,11 +7,11 @@ const middlewares = require("../../../../middlewares/token").CreateToken;
 const moment = require("moment");
 const bcrypt = require("bcrypt");
 const services = {};
+var currentDate = moment().format();
 
 services.register = data =>
   new Promise((resolve, reject) => {
 
-    var currentDate = moment().format();
     data["date_create"] = currentDate;
     data["date_update"] = currentDate;
     const createUser = new Users(data);
@@ -405,7 +405,8 @@ services.createGuide = (sub, data) => new Promise((resolve, reject) => {
   //     });
   //   } else {
   //     if (userFind) {
-  console.log(data, 'data data')
+  data['create_at'] = currentDate
+  data['update_at'] = currentDate
   var guide = new guideSchema(data)
   console.log(guide, 'guide')
   guideSchema.create(guide, function (err, guideCreate) {

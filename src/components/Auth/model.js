@@ -63,14 +63,27 @@ const GuideSchema = Schema({
   nameGuide: { type: String, default: '' },
   descGuide: { type: String, default: '' },
   id_subGuide: { type: Schema.Types.ObjectId, ref: 'subguides' },
-  state: { type: Number, default: 1 }
+  state: { type: Number, default: 1 },
+  create_at: { type: String, default: null },
+  update_at: { type: String, default: null }
 })
 
 const SubGuideSchema = Schema({
   nameSubGuide: { type: String, default: '' },
   descSubGuide: { type: String, default: '' },
-  state: { type: Number, default: 1 }
+  state: { type: Number, default: 1 },
+  create_at: { type: String, default: null },
+  update_at: { type: String, default: null }
 })
+
+const CheckGuideSchema = Schema({
+  id_check: [
+    
+  ],
+  stateChek: {type: Number, default: 0},
+  create_at: { type: String, default: null },
+  update_at: { type: String, default: null }
+}) 
 UserSchema.methods.toJSON = function () {
   const userThis = this;
   const userObject = userThis.toObject();
