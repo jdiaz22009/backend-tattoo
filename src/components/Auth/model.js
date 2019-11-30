@@ -42,7 +42,8 @@ const OrderWork = Schema({
       deposit: { type: Number, default: 0 },
       photoUrlTattoStart: { type: String, default: '' },
       photoUrlTattoFinish: { type: String, default: '' },
-      state: { type: Boolean, default: false }
+      state: { type: Boolean, default: false },
+      uploadphoto: { type: Number, default: 0} // 0. no subida , 1. no quiso subirla, 2. subida
     }
   ],
   checkTermns: { type: Boolean, default: false },
