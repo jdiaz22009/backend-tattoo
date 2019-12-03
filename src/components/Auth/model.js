@@ -77,13 +77,21 @@ const SubGuideSchema = Schema({
 })
 
 const CheckGuideSchema = Schema({
-  id_check: [
-    
+  checkGuide: [
+    {
+      id_guide: { type: Schema.Types.ObjectId, ref: 'guides' },
+      ischeck: { type: Number, default: 0 }, // 0. no check / 1. si check
+    },
   ],
-  stateChek: {type: Number, default: 0},
+  subCheckSub: [
+    {
+      id_guide: { type: Schema.Types.ObjectId, ref: 'subGuides' },
+      ischeck: { type: Number, default: 0 }, // 0. no check / 1. si check
+    },
+  ],
   create_at: { type: String, default: null },
   update_at: { type: String, default: null }
-}) 
+})
 UserSchema.methods.toJSON = function () {
   const userThis = this;
   const userObject = userThis.toObject();
@@ -97,9 +105,12 @@ var orderWork = mongoose.model('orderWork', OrderWork);
 var portafolioSchema = mongoose.model('portafolio', PortafolioSchema);
 var guideSchema = mongoose.model('guides', GuideSchema);
 var subGuideSchema = mongoose.model('subGuides', SubGuideSchema);
+var checkGuideSchema = mongoose.model('checkGuides', CheckGuideSchema)
+
 
 module.exports.guideSchema = guideSchema;
 module.exports.subGuideSchema = subGuideSchema
 module.exports.userSchema = userSchema;
 module.exports.orderWork = orderWork;
 module.exports.portafolioSchema = portafolioSchema;
+module.exports.checkGuideSchema = checkGuideSchema;

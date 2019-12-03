@@ -189,7 +189,7 @@ services.openWork = (sub, data) =>
                         return resolve({
                           code: 201,
                           status: "Successfully update",
-                          updateOrder
+                          createOrder: updateOrder
                         });
                       }
                     });
