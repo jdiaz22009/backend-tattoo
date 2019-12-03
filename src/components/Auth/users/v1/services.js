@@ -259,6 +259,7 @@ services.validEmailExist = data =>
       }
     });
   });
+  
 services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
   Users.findById(sub).exec((err, user) => {
     if (err) {
