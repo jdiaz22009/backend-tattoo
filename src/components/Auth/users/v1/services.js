@@ -62,7 +62,8 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
-        if (!password || password ===  null) {
+        console.log('null', password)
+        if (!password || password === null) {
           return resolve({
             code: 400,
             status: "Bad Request",
@@ -259,7 +260,7 @@ services.validEmailExist = data =>
       }
     });
   });
-  
+
 services.updateViewOrder = (sub, data) => new Promise((resolve, reject) => {
   Users.findById(sub).exec((err, user) => {
     if (err) {
