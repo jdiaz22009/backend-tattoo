@@ -58,9 +58,10 @@ services.login = data =>
       if (error) {
         return reject({ code: 500, status: "Internal server error", error });
       } else {
+        let valid = findUser["password"] ? findUser["password"] : null
         let password = bcrypt.compareSync(
           data["password"],
-          findUser["password"]
+          valid
         );
         console.log('null', password)
         if (!password || password === null) {
