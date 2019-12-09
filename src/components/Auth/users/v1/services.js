@@ -59,26 +59,34 @@ services.login = data =>
         return reject({ code: 500, status: "Internal server error", error });
       } else {
         console.log('find', findUser)
-        // let valid = findUser["password"] !== null ? findUser["password"] : 'nopassword'
-        // let password = bcrypt.compareSync(
-        //   data["password"],
-        //   valid
-        // );
-        // console.log('null', password)
-        // if (!password || password === null) {
-        //   return resolve({
-        //     code: 400,
-        //     status: "Bad Request",
-        //     message: "Invalid credential"
-        //   });
-        // } else {
-        //   return resolve({
-        //     token: middlewares(findUser),
-        //     code: 200,
-        //     status: "OK",
-        //     findUser
-        //   });
-        // }
+        if (findUser !== null) {
+          let password = bcrypt.compareSync(
+           data["password"],
+           findUser["password"]
+         );
+         console.log('null', password)
+         if (!password || password === null) {
+           return resolve({
+             code: 400,
+             status: "Bad Request",
+             message: "Invalid credential"
+           });
+         } else {
+           return resolve({
+             token: middlewares(findUser),
+             code: 200,
+             status: "OK",
+             findUser
+           });
+         }
+        }else{
+          return resolve({
+            code: 300,
+            status: "Bad Request",
+            message: "Account not exist"
+          });
+        }
+
       }
     });
   });
