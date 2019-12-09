@@ -62,7 +62,7 @@ services.login = data =>
           data["password"],
           findUser["password"]
         );
-        if (!password) {
+        if (!password || password ===  null) {
           return resolve({
             code: 400,
             status: "Bad Request",
